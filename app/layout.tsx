@@ -5,6 +5,7 @@ import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import theme from "../theme";
 import "./globals.css";
 import BottomNavBar from "@/app/components/BottomNavBar";
+import MainHeader from "./components/MainHeader";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +23,9 @@ export default function RootLayout({
         <InitColorSchemeScript attribute="class" />
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <header></header>
+            <header>
+              <MainHeader />
+            </header>
             <main>{children}</main>
             <footer>
               <BottomNavBar />
