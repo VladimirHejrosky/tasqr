@@ -1,7 +1,11 @@
-import { Button } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 
 export default function Home() {
   return (
-    <Button variant="contained">click</Button>
+    <Container>
+      <Box>
+      <Button variant="contained">click</Button>
+      </Box>
+    </Container>
   );
 }
