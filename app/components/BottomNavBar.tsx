@@ -1,5 +1,5 @@
 "use client"
-import { Assignment, Settings, ShoppingCart } from '@mui/icons-material';
+import { Assignment, Home, Settings, ShoppingCart } from '@mui/icons-material';
 import { Paper } from '@mui/material';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -17,6 +17,7 @@ export default function BottomNavBar() {
             setValue(newValue);
           }}
         >
+          <BottomNavigationAction label="Domů" icon={<Home />} />
           <BottomNavigationAction label="Úkoly" icon={<Assignment />} />
           <BottomNavigationAction label="Nákup" icon={<ShoppingCart />} />
           <BottomNavigationAction label="Nastavení" icon={<Settings />} />
