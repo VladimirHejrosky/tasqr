@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <Container>
       <Box>
-      <Button variant="contained">click</Button>
+      <div>DashboardPage</div>
       </Box>
     </Container>
   );
