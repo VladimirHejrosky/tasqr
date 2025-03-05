@@ -1,15 +1,32 @@
-import { AddBox } from '@mui/icons-material'
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
+"use client"
+import { AppBar, Box, List, ListItem, ListItemButton, ListItemText, Tab, Tabs, Toolbar, Typography } from '@mui/material'
+import { links } from '../data/links'
+import { usePathname, useRouter } from 'next/navigation'
 
 const MainHeader = () => {
+  const pathname = usePathname()
+  const router = useRouter()
+  const currentLink = links.find(link => link.path === pathname)
   return (
-    <Box justifyContent={"center"}>
+    <Box>
     <AppBar position="static">
       <Toolbar>
         <Typography fontWeight={700} variant='h4' component="div" sx={{ flexGrow: 1 }}>
-          tasqr
+          {currentLink?.path === "/" ? "tasqr" : (currentLink?.label)?.toLocaleLowerCase()}
         </Typography>
-        <Button color="inherit"><AddBox /></Button>
+        <List sx={{ display: { xs: "none", lg: "flex"} }}>
+        {links.map((link, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }} onClick={() => router.push(link.path)}>
+              <ListItemText primary={link.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    
+        <Box sx={{ display: {lg: 'none' } }}>
+           {currentLink?.icon && <currentLink.icon />}
+        </Box>
       </Toolbar>
     </AppBar>
   </Box>
