@@ -43,6 +43,14 @@ export async function GET(req: NextRequest) {
   if (status === "active") {
     filteredTasks = filteredTasks.sort((a, b) => a.priority - b.priority);
   }
+  if (status === "repeated") {
+    filteredTasks = filteredTasks.sort((a, b) => {
+        if (a.done === b.done) {
+          return a.priority - b.priority; 
+        }
+        return b.done ? -1 : 1;
+      });
+  }
 
   return NextResponse.json(filteredTasks, { status: 200 });
 }
