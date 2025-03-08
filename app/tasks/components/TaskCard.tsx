@@ -5,6 +5,8 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt'
 import ReplayIcon from '@mui/icons-material/Replay'
 import DoneIcon from '@mui/icons-material/Done'
 import DeleteIcon from '@mui/icons-material/Delete';
+import { BiTaskX } from "react-icons/bi";
+import { BiTask } from "react-icons/bi";
 
 export interface Task {
   id: string;
@@ -50,8 +52,8 @@ const TaskCard = ({ task }: { task: Task }) => {
     }}
     onClick={() => setShowOverlay(true)}
   >
-    <TaskAltIcon sx={{marginRight: 2}}/>
-    <Typography>{task.label}</Typography>
+    {task.done ? <BiTask size={28}/> : <BiTaskX size={24} className="mr-4" />}
+    <Typography ml={2}>{task.label}</Typography>
 
     {showOverlay && (
       <Box 

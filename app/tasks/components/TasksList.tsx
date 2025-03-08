@@ -5,6 +5,7 @@ import axios from "axios";
 import TaskCard, { Task } from "./TaskCard";
 import { Box, Divider, Typography } from "@mui/material";
 
+
 const fetchTasks = async (status: string): Promise<Task[]> => {
   const { data } = await axios.get(`/api/tasks?status=${status}`);
   return data;
