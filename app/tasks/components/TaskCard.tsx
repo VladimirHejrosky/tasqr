@@ -44,6 +44,8 @@ const TaskCard = ({ task }: { task: Task }) => {
       p: 2,
       mb: 2,
       cursor: "pointer",
+      maxWidth: "600px",
+      marginX: "auto",
     }}
     onClick={() => setShowOverlay(true)}
   >
@@ -51,7 +53,9 @@ const TaskCard = ({ task }: { task: Task }) => {
     <Typography>{task.label}</Typography>
 
     {showOverlay && (
-      <Box
+      <Box 
+        gap={2}
+        pr={2}
         ref={overlayRef}
         sx={{
           position: "absolute",
@@ -63,7 +67,8 @@ const TaskCard = ({ task }: { task: Task }) => {
           borderRadius: 1,
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-around",
+          justifyContent: "end",
+          
         }}
       >
         <Button variant="contained" color="error">
