@@ -30,7 +30,7 @@ export default function RootLayout({
                 <MainHeader />
               </header>
               <main>{children}</main>
-              <footer>
+              <footer className="h-12">
                 <BottomNavBar />
               </footer>
             </ThemeProvider>
