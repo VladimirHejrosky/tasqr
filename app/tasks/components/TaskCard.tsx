@@ -11,6 +11,7 @@ export interface Task {
   label: string;
   done: boolean;
   priority: number;
+  repeat: string 
 }
 
 const TaskCard = ({ task }: { task: Task }) => {
