@@ -8,7 +8,7 @@ const MainHeader = () => {
   const router = useRouter()
   const currentLink = links.find(link => link.path === pathname)
   return (
-    <Box>
+    <Box mb={2}>
     <AppBar position="static">
       <Toolbar>
         <Typography fontWeight={700} variant='h4' component="div" sx={{ flexGrow: 1 }}>
