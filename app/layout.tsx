@@ -6,6 +6,8 @@ import theme from "../theme";
 import "./globals.css";
 import BottomNavBar from "@/app/components/BottomNavBar";
 import MainHeader from "./components/MainHeader";
+import { Query } from "@tanstack/react-query";
+import QueryClientProvider from "./QueryClientProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,18 +22,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <InitColorSchemeScript attribute="class" />
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <header>
-              <MainHeader />
-            </header>
-            <main>{children}</main>
-            <footer>
-              <BottomNavBar />
-            </footer>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <QueryClientProvider>
+          <InitColorSchemeScript attribute="class" />
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <header>
+                <MainHeader />
+              </header>
+              <main>{children}</main>
+              <footer>
+                <BottomNavBar />
+              </footer>
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

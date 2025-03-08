@@ -11,7 +11,7 @@ export interface Task {
   label: string;
   done: boolean;
   priority: number;
-  repeat: string 
+  repeat: "none" | "daily" | "weekly" | "monthly";
 }
 
 const TaskCard = ({ task }: { task: Task }) => {

@@ -3,13 +3,15 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Link from "next/link";
 
-
+interface Props {
+  status: "active" | "completed" | "repeated" 
+}
 const possibleQueries = ["active", "completed", "repeated"];
-export type PossibleTaskQueries = (typeof possibleQueries)[number];
 
-export default function TabPanel({ query }: { query?: PossibleTaskQueries | undefined})  {
+export default function TabPanel({status}: Props) {
 
-    const currentTabIndex = possibleQueries.findIndex(item => item === query)
+    const currentTabIndex = possibleQueries.findIndex(item => item === status)
+    
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
       <Tabs value={currentTabIndex != -1 ? currentTabIndex : 0} centered>
