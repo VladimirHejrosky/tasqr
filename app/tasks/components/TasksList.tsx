@@ -33,7 +33,7 @@ const TasksList = ({status}: Props) => {
           tasks.map(task => <TaskCard key={task.id} task={task} />)
         ) : (
           <Typography variant="h6">
-            {status === "completed" ? "Nemáš dokončené žádné úkoly" : "Nemáš žádné úkoly na splnění"}
+            {status === "completed" ? "Nemáš žádné dokončené úkoly" : "Nemáš žádné úkoly na splnění"}
           </Typography>
         ))}
 
@@ -51,7 +51,7 @@ const TasksList = ({status}: Props) => {
               </Box>
             ) : null;
           })}
-          {tasks.length === 0 && <Typography variant="h6">Nemáš žádné opakující se úkoly</Typography>}
+          {tasks.length === 0 && <Typography variant="h6">Nemáš žádné opakované úkoly</Typography>}
         </>
       )}
     </Box>
