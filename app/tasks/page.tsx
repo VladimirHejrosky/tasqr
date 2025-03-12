@@ -13,7 +13,7 @@ const TasksPage = async ({ searchParams }: Props) => {
   const checkedstatus = status!== "completed" && status !== "repeated" ? "active" : status
   
   return (
-    <Container>
+    <Container sx={{maxWidth: {sm: "600px"}}}>
       <TabPanel status={checkedstatus} />
       <TasksList status={checkedstatus}/>
       <AddTaskButton />

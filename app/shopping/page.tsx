@@ -1,8 +1,11 @@
+import { Container } from '@mui/material'
 import React from 'react'
 
 const ShoppingPage = () => {
   return (
-    <div>ShoppingPage</div>
+    <Container sx={{maxWidth: {sm: "600px"}}}>
+      <div>ShoppingPage</div>
+    </Container>
   )
 }
 

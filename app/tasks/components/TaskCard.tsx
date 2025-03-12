@@ -39,7 +39,6 @@ const TaskCard = ({ task }: { task: Task }) => {
       p: 2,
       mb: 2,
       cursor: "pointer",
-      maxWidth: "600px",
       marginX: "auto",
     }}
     onClick={() => setShowOverlay(true)}
