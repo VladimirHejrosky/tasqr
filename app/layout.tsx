@@ -6,9 +6,8 @@ import theme from "../theme";
 import "./globals.css";
 import BottomNavBar from "@/app/components/BottomNavBar";
 import MainHeader from "./components/MainHeader";
-import { Query } from "@tanstack/react-query";
 import QueryClientProvider from "./QueryClientProvider";
-import { Height } from "@mui/icons-material";
+import AuthProvider from "./auth/Provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,21 +21,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="cs" suppressHydrationWarning>
-      <body style={{marginBottom: "128px"}}>
-        <QueryClientProvider>
-          <InitColorSchemeScript attribute="class" />
-          <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
-              <header>
-                <MainHeader />
-              </header>
-              <main>{children}</main>
-              <footer>
-                <BottomNavBar />
-              </footer>
-            </ThemeProvider>
-          </AppRouterCacheProvider>
-        </QueryClientProvider>
+      <body style={{ marginBottom: "128px" }}>
+        <AuthProvider>
+          <QueryClientProvider>
+            <InitColorSchemeScript attribute="class" />
+            <AppRouterCacheProvider>
+              <ThemeProvider theme={theme} defaultMode="dark">
+                <header>
+                  <MainHeader />
+                </header>
+                <main>{children}</main>
+                <footer>
+                  <BottomNavBar />
+                </footer>
+              </ThemeProvider>
+            </AppRouterCacheProvider>
+          </QueryClientProvider>
+        </AuthProvider>
       </body>
     </html>
   );
