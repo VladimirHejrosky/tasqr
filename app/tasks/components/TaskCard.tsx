@@ -42,7 +42,7 @@ const TaskCard = ({ task }: { task: Task }) => {
       alignItems: "center",
       position: "relative",
       borderRadius: 1,
-      bgcolor: task.done ? "var(--mui-palette-grey-500)" : "var(--mui-palette-Alert-infoFilledBg)",
+      bgcolor: task.done ? "var(--mui-palette-success-light)" : "var(--mui-palette-Alert-infoFilledBg)",
       p: 2,
       mb: 2,
       cursor: "pointer",

@@ -13,7 +13,7 @@ export default function TabPanel({status}: Props) {
     const currentTabIndex = possibleQueries.findIndex(item => item === status)
     
   return (
-    <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+    <Box sx={{ width: "100%", maxWidth:"600px", marginX:"auto", bgcolor: "background.paper" }}>
       <Tabs value={currentTabIndex != -1 ? currentTabIndex : 0} centered>
         <Tab label="Aktivní" component={Link} href="/tasks?status=active" />
         <Tab label="Dokončené" component={Link} href="/tasks?status=completed" />
