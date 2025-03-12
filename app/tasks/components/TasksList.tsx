@@ -2,8 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import TaskCard, { Task } from "./TaskCard";
+import TaskCard from "./TaskCard";
 import { Box, Divider, Typography } from "@mui/material";
+import { Task } from "@prisma/client";
 
 
 const fetchTasks = async (status: string): Promise<Task[]> => {

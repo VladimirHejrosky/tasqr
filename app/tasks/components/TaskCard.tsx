@@ -6,14 +6,7 @@ import DoneIcon from '@mui/icons-material/Done'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BiTaskX } from "react-icons/bi";
 import { BiTask } from "react-icons/bi";
-
-export interface Task {
-  id: string;
-  label: string;
-  done: boolean;
-  priority: number;
-  repeat: "none" | "daily" | "weekly" | "monthly";
-}
+import { Task } from "@prisma/client";
 
 const TaskCard = ({ task }: { task: Task }) => {
   const [showOverlay, setShowOverlay] = useState(false);
