@@ -10,7 +10,8 @@ const AddTaskButton = () => {
         left: 5,
         bottom: 65,
         opacity: ".8",
-        borderRadius: "100%"
+        borderRadius: "100%",
+        display: {xs: "block", lg: "none"}
       }}>
       <IconButton>
         <AddIcon fontSize="large" />
