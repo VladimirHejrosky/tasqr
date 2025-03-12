@@ -11,7 +11,20 @@ const AddTaskButton = () => {
         bottom: 65,
         opacity: ".8",
         borderRadius: "100%",
-        display: {xs: "block", lg: "none"}
+        display: {xs: "block", lg: "none"},
+        boxShadow: "0 0 5px var(--mui-palette-common-onBackground)", 
+        "@keyframes glowing": {
+          "0%": {
+            boxShadow: "0 0 5px var(--mui-palette-common-onBackground)", 
+          },
+          "50%": {
+            boxShadow: "0 0 15px var(--mui-palette-common-onBackground)", 
+          },
+          "100%": {
+            boxShadow: "0 0 5px var(--mui-palette-common-onBackground)", 
+          },
+        },
+        animation: "glowing 1.5s infinite", 
       }}>
       <IconButton>
         <AddIcon fontSize="large" />
