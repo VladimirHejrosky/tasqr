@@ -5,7 +5,7 @@ import ThemeSelector from './components/ThemeSelector'
 
 const SettingsPage = () => {
   return (
-    <Container sx={{maxWidth: {lg: "600px"}}}>
+    <Container sx={{maxWidth: {sm: "600px"}}}>
       <Divider sx={{paddingY:".5rem"}}>Účet</Divider>
       <UserBar />
       <Divider sx={{paddingY:".5rem"}}>Téma</Divider>
