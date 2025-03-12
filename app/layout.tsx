@@ -8,6 +8,7 @@ import BottomNavBar from "@/app/components/BottomNavBar";
 import MainHeader from "./components/MainHeader";
 import { Query } from "@tanstack/react-query";
 import QueryClientProvider from "./QueryClientProvider";
+import { Height } from "@mui/icons-material";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
+    <html lang="cs" suppressHydrationWarning>
+      <body style={{marginBottom: "128px"}}>
         <QueryClientProvider>
           <InitColorSchemeScript attribute="class" />
           <AppRouterCacheProvider>
@@ -30,7 +31,7 @@ export default function RootLayout({
                 <MainHeader />
               </header>
               <main>{children}</main>
-              <footer className="h-12">
+              <footer>
                 <BottomNavBar />
               </footer>
             </ThemeProvider>

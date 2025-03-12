@@ -1,6 +1,7 @@
 import TabPanel from "./components/TabPanel";
 import { Container } from "@mui/material";
 import TasksList from "./components/TasksList";
+import AddTaskButton from "./components/AddTaskButton";
 
 interface Props {
   searchParams: Promise<{ status: "active" | "completed" | "repeated" }>;
@@ -15,6 +16,7 @@ const TasksPage = async ({ searchParams }: Props) => {
     <Container>
       <TabPanel status={checkedstatus} />
       <TasksList status={checkedstatus}/>
+      <AddTaskButton />
     </Container>
   );
 };
