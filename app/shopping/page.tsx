@@ -3,7 +3,7 @@ import React from 'react'
 
 const ShoppingPage = () => {
   return (
-    <Container sx={{maxWidth: {sm: "600px"}}}>
+    <Container maxWidth="sm">
       <div>ShoppingPage</div>
     </Container>
   )

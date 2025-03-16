@@ -20,7 +20,7 @@ export default function TabPanel({status}: Props) {
         <Tab label="Aktivní" component={Link} href="/tasks?status=active" />
         <Tab label="Dokončené" component={Link} href="/tasks?status=completed" />
         <Tab label="Opakované" component={Link} href="/tasks?status=repeated" />
-        <Tab label={<AddIcon/>} component={Link} href="/tasks?status=repeated" sx={{ display: { xs: "none", lg: "flex"}}} />
+        <Tab label={<AddIcon/>} component={Link} href="/tasks/new" sx={{ display: { xs: "none", lg: "flex"}}} />
       </Tabs>
     </Box>
   );

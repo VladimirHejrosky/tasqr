@@ -1,10 +1,14 @@
 "use client"
 import AddIcon from "@mui/icons-material/Add";
 import { Fab } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 const AddTaskButton = () => {
+  const router = useRouter()
   return (
-    <Fab color="secondary" sx={{
+    <Fab
+      onClick={() => router.push("/tasks/new")}
+      color="secondary" sx={{
       position: "fixed",
       left: 5,
       bottom: 65,

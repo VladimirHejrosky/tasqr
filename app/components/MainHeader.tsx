@@ -6,8 +6,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Tab,
-  Tabs,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -36,6 +34,7 @@ const MainHeader = () => {
               </Typography>
               <List sx={{ display: { xs: "none", lg: "flex" } }}>
                 {links.map((link, index) => (
+                  link.main === true &&
                   <ListItem key={index} disablePadding>
                     <ListItemButton
                       sx={{ textAlign: "center" }}

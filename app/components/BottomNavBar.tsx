@@ -30,10 +30,11 @@ export default function BottomNavBar() {
             }}
           >
             {links.map((link, index) => (
+              link.main === true &&
               <BottomNavigationAction
                 key={index}
                 label={link.label}
-                icon={<link.icon />}
+                icon={link.icon ? <link.icon /> : null}
               />
             ))}
           </BottomNavigation>
