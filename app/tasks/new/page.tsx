@@ -16,20 +16,20 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { newTaskSchema } from "@/app/validationSchemas";
+import{ z } from "zod"
+import {zodResolver} from "@hookform/resolvers/zod"
 
-interface formInputs {
-  label: string;
-  repeat: string;
-  priority: number;
-}
+type formInputs = z.infer<typeof newTaskSchema>
 
 const NewTaskPage = () => {
-  const { register, control, handleSubmit } = useForm<formInputs>({
+  const { register, control, handleSubmit, formState: {errors} } = useForm<formInputs>({
     defaultValues: {
       label: "",
       priority: 1,
       repeat: "none",
     },
+    resolver: zodResolver(newTaskSchema)
   });
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -58,10 +58,11 @@ const NewTaskPage = () => {
       >
         <FormControl fullWidth>
           <TextField
+            error={!!errors.label}
+            helperText={errors.label?.message || ""}
             size="medium"
-            required
             variant="outlined"
-            label="Popis"
+            label="Název"
             {...register("label")}
           />
         </FormControl>
