@@ -1,5 +1,6 @@
 "use client";
 import {
+  Backdrop,
   Box,
   Button,
   CircularProgress,
@@ -116,12 +117,10 @@ const NewTaskPage = () => {
             variant="contained"
           >
             Vytvořit
-            {mutation.isPending && (
-              <CircularProgress color="inherit" size={"1rem"} />
-            )}
           </Button>
         </Box>
       </Box>
+      <Backdrop open={mutation.isPending}><CircularProgress color="inherit" /></Backdrop>
     </Container>
   );
 };
