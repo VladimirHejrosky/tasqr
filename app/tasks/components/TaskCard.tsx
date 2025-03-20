@@ -5,7 +5,7 @@ import { BiTaskX } from "react-icons/bi";
 import { BiTask } from "react-icons/bi";
 import { Task } from "@prisma/client";
 import DeleteButton from "./DeleteTaskButton";
-import EditTaskButton from "./ToggleTaskButton";
+import ToggleTaskButton from "./ToggleTaskButton";
 
 const TaskCard = ({ task }: { task: Task }) => {
   return (
@@ -33,7 +33,7 @@ const TaskCard = ({ task }: { task: Task }) => {
 
       <Box display={"flex"} gap={2} ml={2}>
       <DeleteButton id={task.id}/>
-      <EditTaskButton id={task.id} done={task.done} />
+      <ToggleTaskButton id={task.id} done={task.done} />
       </Box>
     </Box>
   );

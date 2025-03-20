@@ -9,7 +9,7 @@ interface Props {
     done: boolean
 }
 
-const EditTaskButton = ({id, done}: Props) => {
+const ToggleTaskButton = ({id, done}: Props) => {
     const queryClient = useQueryClient()
     const mutation = useMutation({
         mutationFn: async () => {
@@ -33,4 +33,4 @@ const EditTaskButton = ({id, done}: Props) => {
   )
 }
 
-export default EditTaskButton
+export default ToggleTaskButton
