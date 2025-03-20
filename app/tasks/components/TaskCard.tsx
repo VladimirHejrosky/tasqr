@@ -5,7 +5,7 @@ import { BiTaskX } from "react-icons/bi";
 import { BiTask } from "react-icons/bi";
 import { Task } from "@prisma/client";
 import DeleteButton from "./DeleteTaskButton";
-import EditTaskButton from "./EditTaskButton";
+import EditTaskButton from "./ToggleTaskButton";
 
 const TaskCard = ({ task }: { task: Task }) => {
   return (
