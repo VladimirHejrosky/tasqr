@@ -35,9 +35,8 @@ export default function AlertDialog({ id }: Props) {
     setOpen(false);
   };
   const handleDelete = async () => {
-    // Wait for the mutation to complete before closing the dialog
     await mutation.mutateAsync();
-    handleClose(); // Close the dialog only after the mutation completes
+    handleClose(); 
   };
 
   return (
