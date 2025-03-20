@@ -23,28 +23,36 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const filter = () => {
-    switch (status) {
-      default:
-    case "active":
-      return { done: false };
-    case "completed":
-      return { done: true };
-    case "repeated":
-      return { repeat: { not: "none" as Repeat} };
-  }
-  }
-
+  const filters = {
+    active: {
+      where: { userId: user.id, done: false },
+      orderBy: [{ priority: "desc" as const }, { updatedAt: "desc" as const }],
+      take: undefined
+    },
+    completed: {
+      where: { userId: user.id, done: true },
+      orderBy: [{ updatedAt: "desc" as const }],
+      take: 10,
+    },
+    repeated: {
+      where: { userId: user.id, repeat: { not: "none" as Repeat } },
+      orderBy: [{ priority: "desc" as const }, { updatedAt: "desc" as const }],
+      take: undefined
+    },
+    default: {
+      where: { userId: user.id, done: false },
+      orderBy: [{ priority: "desc" as const }, { updatedAt: "desc" as const }],
+      take: undefined
+    },
+  };
+  
+  const { where, orderBy, take } = filters[status as keyof typeof filters] || filters.default;
+  
   const tasks: Task[] = await prisma.task.findMany({
-    where: {...filter(), userId:user.id},
-    orderBy: [
-      { priority: "desc" },
-      { updatedAt: "desc" },
-      { done: "asc" }
-    ]
-  })
-
-
+    where,
+    orderBy,
+    take,
+  });
   return NextResponse.json(tasks, { status: 200 });
 }
 

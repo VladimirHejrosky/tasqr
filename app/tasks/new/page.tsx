@@ -59,6 +59,7 @@ const NewTaskPage = () => {
       >
         <FormControl fullWidth>
           <TextField
+            autoFocus={true}
             error={!!errors.label}
             helperText={errors.label?.message || ""}
             size="medium"
