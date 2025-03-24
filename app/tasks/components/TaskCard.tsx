@@ -1,14 +1,8 @@
-import { Box, Button, Typography } from "@mui/material";
-import ReplayIcon from "@mui/icons-material/Replay";
-import DoneIcon from "@mui/icons-material/Done";
-import { BiTaskX } from "react-icons/bi";
-import { BiTask } from "react-icons/bi";
+import { Box } from "@mui/material";
 import { Task } from "@prisma/client";
-import DeleteButton from "../edit/[id]/components/DeleteTaskButton";
-import ToggleTaskButton from "./ToggleTaskButton";
-import EditIcon from "@mui/icons-material/Edit";
-import Link from "next/link";
+import { BiTask } from "react-icons/bi";
 import TaskLabel from "./TaskLabel";
+import ToggleTaskButton from "./ToggleTaskButton";
 
 interface Props {
   task: Task;
@@ -32,11 +26,7 @@ const TaskCard = ({ task, displayAsRepeat }: Props) => {
           width: "100%",
         }}
       >
-        {task.done ? (
-          <BiTask size={24} className="shrink-0" />
-        ) : (
-          <BiTaskX size={24} className="shrink-0" />
-        )}
+        <BiTask size={24} className="shrink-0" />
         <TaskLabel id={task.id} label={task.label} />
 
         <Box display={"flex"} gap={1} ml={2} flexShrink={0}>
