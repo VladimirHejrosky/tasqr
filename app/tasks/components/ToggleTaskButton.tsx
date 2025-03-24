@@ -12,15 +12,20 @@ interface Props {
 const ToggleTaskButton = ({id, done}: Props) => {
     const queryClient = useQueryClient()
     const mutation = useMutation({
-        mutationFn: async () => {
-            return await axios.patch(`api/tasks/${id}`)
+        mutationFn: async (updatedData: { done: boolean }) => {
+            return await axios.patch(`api/tasks/${id}`, updatedData)
         },
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ["tasks"]})
         }
     })
 
-    const handleUpdate = () => mutation.mutate()
+    const handleUpdate = () => {
+        const updatedData = {
+            done: !done
+        }
+        mutation.mutate(updatedData)
+    }
 
   return (
     <>

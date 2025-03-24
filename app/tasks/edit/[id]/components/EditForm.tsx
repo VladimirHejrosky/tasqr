@@ -46,8 +46,8 @@ const EditForm = ({task}: Props) => {
 
   const queryClient = useQueryClient();
   const mutation = useMutation<void, Error, formInputs>({
-    mutationFn: async (newTask) => {
-      return await axios.patch("/api/tasks/xxxxx", newTask); // upravit api
+    mutationFn: async (updatedData) => {
+      return await axios.patch(`/api/tasks/${task.id}`, updatedData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });

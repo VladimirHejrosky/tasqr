@@ -2,7 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
-import { Task } from "@prisma/client";
+import { Repeat, Task } from "@prisma/client";
+
+interface patchData{
+  label?: string,
+  done?: boolean,
+  repeat?: Repeat,
+  priority?: number
+} 
 
 export async function DELETE(
   req: NextRequest,
@@ -45,6 +52,15 @@ export async function DELETE(
 export async function PATCH(req: NextRequest, {params}: {params: Promise<{id: string}>}) {
   const { id } = await params
   const session = await getServerSession(authOptions)
+  const {label, repeat, priority, done}:patchData = await req.json()
+
+  const updateData: patchData = {
+    label,
+    repeat,
+    priority,
+    done
+  }
+  console.log(updateData)
 
   if (!session || !session.user?.email) {
     return NextResponse.json({error: "Unauthorized"}, {status: 401})
@@ -66,11 +82,10 @@ export async function PATCH(req: NextRequest, {params}: {params: Promise<{id: st
     if (!user || user.task.length === 0) {
       return NextResponse.json({error: "Taks not found or not owned by user"}, {status: 404})
     }
-
-    const currentTaskCompletion = user.task[0].done
+  
     await prisma.task.update({
       where: { id: taskId },
-      data: { done: !currentTaskCompletion }
+      data: updateData
     })
 
     return NextResponse.json({message: "Task updated succesfully"}, {status: 200})
