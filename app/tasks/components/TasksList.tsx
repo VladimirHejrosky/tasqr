@@ -31,18 +31,32 @@ const TasksList = ({ status }: Props) => {
   return (
     <Box marginTop={2} textAlign="center">
       {/* Regular tasks */}
-      {status == "active" &&
-        (tasks.length > 0 ? (
-          tasks.map((task) => <TaskCard key={task.id} task={task} />)
-        ) : (
+      {status == "active" &&  (
+        <>
+        {
+          [2,1,0].map((priority) => {
+            const filteredTasks = tasks.filter((task) => task.priority === priority)
+            return filteredTasks.length > 0 ? (
+            <Box key={priority} marginBottom={2}>
+              <Divider sx={{mb:2}}>{priority === 2 ? "Důležité" : priority === 1 ? "Běžné" : "Nedůležité"}</Divider>
+              {filteredTasks.map(task => (
+                <TaskCard key={task.id} task={task}/>
+              ))}
+            </Box>
+          ): null
+        })}
+      
+        {tasks.length === 0 && 
           <Typography variant="h6">"Nemáš žádné úkoly na splnění"</Typography>
-        ))}
+        }
+        </>
+      )}
 
       {/* Completed tasks */}
       {status === "completed" &&
         (tasks.length > 0 ? (
           <>
-            <Divider sx={{mb: 2}}>Poslední dokončené</Divider>
+            <Divider sx={{mb: 2}}>Historie dokončených</Divider>
             {tasks.map((task) => (
               <TaskCard key={task.id} task={task} />
             ))}
