@@ -4,10 +4,11 @@ import DoneIcon from "@mui/icons-material/Done";
 import { BiTaskX } from "react-icons/bi";
 import { BiTask } from "react-icons/bi";
 import { Task } from "@prisma/client";
-import DeleteButton from "./DeleteTaskButton";
+import DeleteButton from "../edit/[id]/components/DeleteTaskButton";
 import ToggleTaskButton from "./ToggleTaskButton";
 import EditIcon from "@mui/icons-material/Edit";
 import Link from "next/link";
+import TaskLabel from "./TaskLabel";
 
 interface Props {
   task: Task;
@@ -28,22 +29,20 @@ const TaskCard = ({ task, displayAsRepeat }: Props) => {
             ? "var(--mui-palette-success-light)"
             : "var(--mui-palette-Alert-infoFilledBg)",
           p: 1,
-          width: "100%"
+          width: "100%",
         }}
       >
         {task.done ? (
-          <BiTask size={24} className="shrink-0"/>
+          <BiTask size={24} className="shrink-0" />
         ) : (
-          <BiTaskX size={24} className="shrink-0"/>
+          <BiTaskX size={24} className="shrink-0" />
         )}
-        <Typography flex={1} textAlign={"left"} ml={1}>{task.label}</Typography>
+        <TaskLabel id={task.id} label={task.label} />
 
-      <Box display={"flex"} gap={1} ml={2} flexShrink={0}>
-        {displayAsRepeat ? (
-        <DeleteButton id={task.id} />
-        ) : (
-          <ToggleTaskButton id={task.id} done={task.done} />
-        )}
+        <Box display={"flex"} gap={1} ml={2} flexShrink={0}>
+          {!displayAsRepeat && (
+            <ToggleTaskButton id={task.id} done={task.done} />
+          )}
         </Box>
       </Box>
     </Box>

@@ -27,31 +27,26 @@ export async function GET(req: NextRequest) {
     active: {
       where: { userId: user.id, done: false },
       orderBy: [{ priority: "desc" as const }, { updatedAt: "desc" as const }],
-      take: undefined
     },
     completed: {
       where: { userId: user.id, done: true },
       orderBy: [{ updatedAt: "desc" as const }],
-      take: 10,
     },
     repeated: {
       where: { userId: user.id, repeat: { not: "none" as Repeat } },
       orderBy: [{ priority: "desc" as const }, { updatedAt: "desc" as const }],
-      take: undefined
     },
     default: {
       where: { userId: user.id, done: false },
       orderBy: [{ priority: "desc" as const }, { updatedAt: "desc" as const }],
-      take: undefined
     },
   };
   
-  const { where, orderBy, take } = filters[status as keyof typeof filters] || filters.default;
+  const { where, orderBy } = filters[status as keyof typeof filters] || filters.default;
   
   const tasks: Task[] = await prisma.task.findMany({
     where,
     orderBy,
-    take,
   });
   return NextResponse.json(tasks, { status: 200 });
 }

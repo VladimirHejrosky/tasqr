@@ -15,7 +15,8 @@ import { usePathname, useRouter } from "next/navigation";
 const MainHeader = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const currentLink = links.find((link) => link.path === pathname);
+  const currentLink = links.find((link) => pathname.startsWith(link.path));
+  
   return (
     <>
       {pathname !== "/signin" && 

@@ -1,29 +1,35 @@
 "use client";
+import { newTaskSchema } from "@/app/validationSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Backdrop,
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
+    Backdrop,
+    Box,
+    Button,
+    CircularProgress,
+    Container,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Typography,
 } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { Repeat } from "@prisma/client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
-import { newTaskSchema } from "@/app/validationSchemas";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import DeleteTaskButton from "./DeleteTaskButton";
 
 type formInputs = z.infer<typeof newTaskSchema>;
 
-const NewTaskPage = () => {
+interface Props {
+  task: { id: number; label: string; priority: number; repeat: Repeat };
+}
+
+const EditForm = ({task}: Props) => {
+    const router = useRouter()
   const {
     register,
     control,
@@ -31,17 +37,17 @@ const NewTaskPage = () => {
     formState: { errors },
   } = useForm<formInputs>({
     defaultValues: {
-      label: "",
-      priority: 1,
-      repeat: "none",
+      label: task.label,
+      priority: task.priority,
+      repeat: task.repeat,
     },
     resolver: zodResolver(newTaskSchema),
   });
-  const router = useRouter();
+
   const queryClient = useQueryClient();
   const mutation = useMutation<void, Error, formInputs>({
     mutationFn: async (newTask) => {
-      return await axios.post("/api/tasks", newTask);
+      return await axios.patch("/api/tasks/xxxxx", newTask); // upravit api
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
@@ -53,9 +59,9 @@ const NewTaskPage = () => {
     <Container maxWidth="sm">
       <Box display={"flex"} justifyContent={"center"} my={3}>
         {mutation.isError ? (
-          <Typography color="error">Chyba při vytváření úkolu</Typography>
+          <Typography color="error">Chyba při editaci úkolu</Typography>
         ) : (
-          <Typography>Vytvoření nového úkolu</Typography>
+          <Typography>Editace úkolu</Typography>
         )}
       </Box>
       <Box
@@ -68,7 +74,6 @@ const NewTaskPage = () => {
         <FormControl fullWidth>
           <TextField
             focused={true}
-            autoFocus={true}
             error={!!errors.label}
             helperText={errors.label?.message || ""}
             size="medium"
@@ -119,6 +124,7 @@ const NewTaskPage = () => {
           >
             Zrušit
           </Button>
+          <DeleteTaskButton id={task.id}/>
           <Button
             disabled={mutation.isPending}
             type="submit"
@@ -126,7 +132,7 @@ const NewTaskPage = () => {
             color="success"
             variant="contained"
           >
-            Vytvořit
+            Uložit
           </Button>
         </Box>
       </Box>
@@ -137,4 +143,4 @@ const NewTaskPage = () => {
   );
 };
 
-export default NewTaskPage;
+export default EditForm;

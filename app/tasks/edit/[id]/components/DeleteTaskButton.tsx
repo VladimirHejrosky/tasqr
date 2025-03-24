@@ -10,20 +10,25 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface Props {
   id: number;
 }
 
 export default function AlertDialog({ id }: Props) {
-  const [open, setOpen] = React.useState(false);
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async () => {
-      return await axios.delete(`/api/tasks/${id}`);
+      await axios.delete(`/api/tasks/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      router.push("/tasks");
     },
   });
 
@@ -36,12 +41,17 @@ export default function AlertDialog({ id }: Props) {
   };
   const handleDelete = async () => {
     await mutation.mutateAsync();
-    handleClose(); 
+    handleClose();
   };
 
   return (
     <>
-        <DeleteIcon sx={{cursor:"pointer"}} fontSize="large" color="error" onClick={handleClickOpen} />
+      <DeleteIcon
+        sx={{ cursor: "pointer" }}
+        fontSize="large"
+        color="error"
+        onClick={handleClickOpen}
+      />
 
       <Dialog id="delete-dialog" open={open} onClose={handleClose}>
         <DialogTitle>{"Potvrdit"}</DialogTitle>
@@ -61,6 +71,9 @@ export default function AlertDialog({ id }: Props) {
           </Button>
         </DialogActions>
       </Dialog>
+      <Backdrop open={mutation.isPending}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }

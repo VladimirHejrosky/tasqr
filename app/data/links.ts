@@ -1,4 +1,4 @@
-import { Assignment, Home, Settings, ShoppingCart, AddCircle
+import { Assignment, Home, Settings, ShoppingCart, AddCircle, Edit
  } from '@mui/icons-material';
 import { SvgIconComponent } from '@mui/icons-material';
 
@@ -9,10 +9,12 @@ export interface NavLink {
   main: Boolean
 }
 
+// !!!! MainHeader functionality depends on the order of links !!!!
 export const links: NavLink[] = [
-  { label: "Přehled", path: "/", icon: Home, main: true },
+  { label: "Nový", path: "/tasks/new", icon: AddCircle, main: false},
+  { label: "Editace", path: "/tasks/edit", icon: Edit, main: false},
   { label: "Úkoly", path: "/tasks", icon: Assignment, main: true },
   { label: "Nákup", path: "/shopping", icon: ShoppingCart, main: true },
   { label: "Nastavení", path: "/settings", icon: Settings, main: true },
-  { label: "Nový úkol", path: "/tasks/new", icon: AddCircle, main: false}
+  { label: "Přehled", path: "/", icon: Home, main: true },
 ];
