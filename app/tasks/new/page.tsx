@@ -85,9 +85,9 @@ const NewTaskPage = () => {
             control={control}
             render={({ field }) => (
               <Select {...field} label="Priorita" labelId="priority-label">
-                <MenuItem value={0}>Nízká</MenuItem>
-                <MenuItem value={1}>Normální</MenuItem>
                 <MenuItem value={2}>Vysoká</MenuItem>
+                <MenuItem value={1}>Normální</MenuItem>
+                <MenuItem value={0}>Nízká</MenuItem>
               </Select>
             )}
           />
