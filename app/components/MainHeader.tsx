@@ -10,12 +10,17 @@ import {
   Typography,
 } from "@mui/material";
 import { links } from "../data/links";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter,} from "next/navigation";
 
 const MainHeader = () => {
+  const router = useRouter()
+  const {id} = useParams()
   const pathname = usePathname();
-  const router = useRouter();
-  const currentLink = links.find((link) => pathname.startsWith(link.path));
+
+  const currentLink = links.find((link) => {
+    const expectedLink = id ? `${link.path}/${id}` : link.path
+    return expectedLink === pathname
+  })
   
   return (
     <>
