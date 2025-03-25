@@ -25,8 +25,8 @@ const MainHeader = () => {
   return (
     <>
       {pathname !== "/signin" && 
-        <Box mb={2}>
-          <AppBar position="static">
+        <Box mb={"70px"} position="static">
+          <AppBar>
             <Toolbar>
               <Typography
                 fontWeight={700}

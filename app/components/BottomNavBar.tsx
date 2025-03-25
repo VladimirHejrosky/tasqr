@@ -1,5 +1,5 @@
 "use client";
-import { Hidden, Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { usePathname, useRouter } from "next/navigation";
@@ -12,6 +12,7 @@ export default function BottomNavBar() {
   return (
     <>
       {pathname !== "/signin" && (
+        <Box sx={{ marginTop: {xs: "130px", lg: "0" }}}>
         <Paper
           sx={{
             position: "fixed",
@@ -39,6 +40,7 @@ export default function BottomNavBar() {
             ))}
           </BottomNavigation>
         </Paper>
+        </Box>
       )}
     </>
   );

@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="cs" suppressHydrationWarning>
-      <body style={{ marginBottom: "128px" }}>
+      <body>
         <AuthProvider>
           <QueryClientProvider>
             <InitColorSchemeScript attribute="class" />
