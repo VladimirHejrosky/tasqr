@@ -30,7 +30,7 @@ const ToggleTaskButton = ({id, done}: Props) => {
   return (
     <>
     {done ? (
-        <ReplayIcon onClick={handleUpdate} fontSize="medium" sx={{cursor:"pointer"}}/>
+        <ReplayIcon onClick={handleUpdate} color="secondary" fontSize="medium" sx={{cursor:"pointer"}}/>
     ) : (
         <DoneIcon onClick={handleUpdate} color="success" fontSize="medium"sx={{cursor:"pointer"}}/>
     )}

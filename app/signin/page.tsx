@@ -1,7 +1,14 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { Box, Card, CardActions, CardContent, Container } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Container,
+  Typography,
+} from "@mui/material";
 import GoogleSignInButton from "./components/GoogleSignInButton";
 import GoogleIcon from "@mui/icons-material/Google";
 
@@ -10,17 +17,63 @@ export default async function SignInPage() {
   if (session) redirect("/");
 
   return (
-    <Container>
-      <Box display={"flex"} justifyContent={"center"} alignItems={"center"} height={"calc(100vh - 128px)"}>
-        <Card sx={{display: "flex", flexDirection: "column", justifyContent:"center", alignItems:"center", width:"fit-content"}}>
-          <CardContent>
-            <GoogleIcon />
-          </CardContent>
-          <CardActions>
-            <GoogleSignInButton />
-          </CardActions>
-        </Card>
-      </Box>
-    </Container>
+    <Box
+      sx={{
+        background: "linear-gradient(to right, #415a77, #778da9)",
+        height: "100vh",
+      }}
+    >
+      <Container maxWidth="sm">
+        <Box
+          display={"flex"}
+          gap={2}
+          flexDirection={"column"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          p={3}
+        >
+          <Card sx={{ width: "100%"}}>
+            <CardContent>
+              <Typography textAlign={"center"} variant="h3" fontWeight={"bold"}>
+                TASQR.beta
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{ padding: ".5rem", alignSelf: "flex-end" }}>
+            <CardContent>
+              <Typography textAlign={"end"}>Spravuj své úkoly</Typography>
+              <Typography textAlign={"end"}>Dokončuj úkoly</Typography>
+              <Typography textAlign={"end"}>Buď produktivní</Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{padding: ".5rem", alignSelf: "flex-start" }}>
+            <CardContent>
+              <Typography>Připravuje se:</Typography>
+              <Typography>Nákupní seznam</Typography>
+              <Typography>Připomenutí seznamu v obchodě</Typography>
+            </CardContent>
+          </Card>
+          <Card
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "fit-content",
+              padding: ".5rem",
+              marginTop: "2rem"
+            }}
+          >
+            <Typography>Přihlášení</Typography>
+            <CardContent>
+              <GoogleIcon />
+            </CardContent>
+            <CardActions>
+              <GoogleSignInButton />
+            </CardActions>
+          </Card>
+        </Box>
+      </Container>
+    </Box>
   );
 }

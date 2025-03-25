@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 const GoogleSignInButton = () => {
   return (
     <Button variant='outlined' onClick={() => signIn("google", { callbackUrl: "/" })}>
-        Přihlášení přes Google
+        Přihlásit přes Google
     </Button>
   )
 }

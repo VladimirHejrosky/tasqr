@@ -1,14 +1,22 @@
 "use client"
 import { Box, Button, Skeleton, Typography } from "@mui/material"
-import { useSession } from "next-auth/react"
-import Link from "next/link"
+import { useSession, signOut } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 const UserBar = () => {
+  
     const { status, data: session} = useSession()
+    const router = useRouter()
+
+    const handleSignOut = async () => {
+      await signOut({ redirect: false })
+      router.push("/signin")
+    };
+
   return (
     <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
         {status === "loading" ? <Skeleton width={"100px"}/> : <Typography>{session?.user?.name}</Typography>}
-        <Button><Link href={"/api/auth/signout"}>Odhlásit</Link></Button>
+        <Button onClick={handleSignOut}>Odhlásit</Button>
     </Box>
   )
 }
