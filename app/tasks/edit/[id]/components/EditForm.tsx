@@ -51,7 +51,7 @@ const EditForm = ({task}: Props) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      return router.push("/tasks");
+      return router.back();
     },
   });
 
