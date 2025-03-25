@@ -8,7 +8,7 @@ const AddTaskButton = () => {
   return (
     <Fab
       onClick={() => router.push("/tasks/new")}
-      color="secondary" sx={{
+      color="primary" sx={{
       position: "fixed",
       left: 5,
       bottom: 65,

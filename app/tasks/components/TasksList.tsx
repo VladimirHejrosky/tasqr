@@ -38,7 +38,7 @@ const TasksList = ({ status }: Props) => {
             const filteredTasks = tasks.filter((task) => task.priority === priority)
             return filteredTasks.length > 0 ? (
             <Box key={priority} marginBottom={2}>
-              <Divider sx={{mb:2}}>{priority === 2 ? "Důležité" : priority === 1 ? "Běžné" : "Nedůležité"}</Divider>
+              <Divider sx={{mb:2}}>{priority === 2 ? "Důležité" : priority === 1 ? "Běžné" : "Podružné"}</Divider>
               {filteredTasks.map(task => (
                 <TaskCard key={task.id} task={task}/>
               ))}

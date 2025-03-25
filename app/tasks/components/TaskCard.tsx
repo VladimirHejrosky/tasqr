@@ -13,18 +13,14 @@ const TaskCard = ({ task, displayAsRepeat }: Props) => {
   return (
     <Box display={"flex"} alignItems={"center"} mb={2}>
       <Box
-        sx={{
+        sx={(theme) => ({
           display: "flex",
           alignItems: "center",
           borderRadius: 1,
-          bgcolor: displayAsRepeat
-            ? "var(--mui-palette-grey-600)"
-            : task.done
-            ? "var(--mui-palette-success-light)"
-            : "var(--mui-palette-Alert-infoFilledBg)",
+          bgcolor: theme.palette.mode === "dark" ? "#415a77" : "#8ecae6",
           p: 1,
           width: "100%",
-        }}
+        })}
       >
         <BiTask size={24} className="shrink-0" />
         <TaskLabel id={task.id} label={task.label} />
