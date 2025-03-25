@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
-import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
-import theme from "../theme";
-import "./globals.css";
 import BottomNavBar from "@/app/components/BottomNavBar";
-import MainHeader from "./components/MainHeader";
-import QueryClientProvider from "./QueryClientProvider";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+import { ThemeProvider } from "@mui/material/styles";
+import type { Metadata } from "next";
+import theme from "../theme";
 import AuthProvider from "./auth/Provider";
+import MainHeader from "./components/MainHeader";
+import "./globals.css";
+import QueryClientProvider from "./QueryClientProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",

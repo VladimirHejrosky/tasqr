@@ -1,16 +1,14 @@
 "use client";
-import * as React from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Backdrop, CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { useMutation } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { Backdrop, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

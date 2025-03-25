@@ -1,7 +1,6 @@
 "use client"
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 interface Props {
     id: number

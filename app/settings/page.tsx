@@ -1,7 +1,6 @@
 import { Container, Divider } from '@mui/material'
-import React from 'react'
-import UserBar from './components/UserBar'
 import ThemeSelector from './components/ThemeSelector'
+import UserBar from './components/UserBar'
 
 const SettingsPage = () => {
   return (

@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import { Repeat, Task } from "@prisma/client";
 import { prisma } from "@/prisma/prisma";
+import { Repeat, Task } from "@prisma/client";
 import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
   
 export async function GET(req: NextRequest) {

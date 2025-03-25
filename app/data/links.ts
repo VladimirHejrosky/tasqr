@@ -1,6 +1,10 @@
-import { Assignment, Home, Settings, ShoppingCart, AddCircle, Edit
- } from '@mui/icons-material';
-import { SvgIconComponent } from '@mui/icons-material';
+import {
+  AddCircle,
+  Assignment,
+  Edit,
+  Home, Settings, ShoppingCart,
+  SvgIconComponent
+} from '@mui/icons-material';
 
 export interface NavLink {
   label: string;

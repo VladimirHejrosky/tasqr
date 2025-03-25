@@ -1,6 +1,5 @@
 "use client"
-import { Box, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material"
-import { useColorScheme } from "@mui/material"
+import { Box, FormControl, FormControlLabel, Radio, RadioGroup, useColorScheme } from "@mui/material"
 
 
 const ThemeSelector = () => {

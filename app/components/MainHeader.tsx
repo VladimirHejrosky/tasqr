@@ -9,8 +9,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useParams, usePathname, useRouter, } from "next/navigation";
 import { links } from "../data/links";
-import { useParams, usePathname, useRouter,} from "next/navigation";
 
 const MainHeader = () => {
   const router = useRouter()

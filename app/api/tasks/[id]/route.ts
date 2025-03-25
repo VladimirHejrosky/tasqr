@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/prisma";
+import { Repeat } from "@prisma/client";
 import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
-import { Repeat, Task } from "@prisma/client";
 
 interface patchData{
   label?: string,
