@@ -28,7 +28,7 @@ export default function AlertDialog({ id }: Props) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      router.push("/tasks");
+      router.back();
     },
   });
 
