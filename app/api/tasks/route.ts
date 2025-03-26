@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
     })
     return NextResponse.json(newTask, {status: 201})
 
-  } catch (error) {
-    return NextResponse.json({ message: "Chyba při vytváření úkolu" }, { status: 500 })
+  } catch  {
+    return NextResponse.json({ error: "Chyba při vytváření úkolu" }, { status: 500 })
   }
 }

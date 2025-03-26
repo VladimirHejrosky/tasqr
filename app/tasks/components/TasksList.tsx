@@ -47,7 +47,7 @@ const TasksList = ({ status }: Props) => {
         })}
       
         {tasks.length === 0 && 
-          <Typography variant="h6">"Nemáš žádné úkoly na splnění"</Typography>
+          <Typography variant="h6">Nemáš žádné úkoly na splnění</Typography>
         }
         </>
       )}
@@ -62,7 +62,7 @@ const TasksList = ({ status }: Props) => {
             ))}
           </>
         ) : (
-          <Typography variant="h6">"Nemáš žádné dokončené úkoly"</Typography>
+          <Typography variant="h6">Nemáš žádné dokončené úkoly</Typography>
         ))}
 
       {/* Repeated Tasks */}

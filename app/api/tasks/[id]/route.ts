@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/prisma";
-import { Repeat } from "@prisma/client";
+import { Repeat } from "@prisma/client"
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
@@ -44,7 +44,7 @@ export async function DELETE(
 
   return NextResponse.json({ message: "Task deleted successfully" }, { status: 200 });
 
-} catch (error) {
+} catch{
   return NextResponse.json({ error: "Failed to delete task" }, { status: 500 });
 }
 }
@@ -89,7 +89,7 @@ export async function PATCH(req: NextRequest, {params}: {params: Promise<{id: st
     })
 
     return NextResponse.json({message: "Task updated succesfully"}, {status: 200})
-  } catch (error) {
+  } catch {
     return NextResponse.json({error: "Failed to edit task,"}, {status: 500})
   }
 }
@@ -122,7 +122,7 @@ export async function GET(req: NextRequest, {params}: {params: Promise<{id: stri
 
     return NextResponse.json(task, {status: 200})
 
-  } catch (error) {
+  } catch {
     return NextResponse.json({error: "Failed to get task,"}, {status: 500})
   }
 }

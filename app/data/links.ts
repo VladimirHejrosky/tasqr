@@ -10,10 +10,9 @@ export interface NavLink {
   label: string;
   path: string;
   icon: SvgIconComponent | null;
-  main: Boolean
+  main: boolean
 }
 
-// !!!! MainHeader functionality depends on the order of links !!!!
 export const links: NavLink[] = [
   { label: "Přehled", path: "/", icon: Home, main: true },
   { label: "Úkoly", path: "/tasks", icon: Assignment, main: true },

@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
             
             return NextResponse.json({message: "Tasks updated"})
 
-        } catch (error) {
+        } catch {
 
             return NextResponse.json({error: "Failed to update tasks"}, {status:500})
         }
