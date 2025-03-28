@@ -2,6 +2,7 @@
 import DoneIcon from "@mui/icons-material/Done";
 import ReplayIcon from "@mui/icons-material/Replay";
 import { Backdrop, CircularProgress } from "@mui/material";
+import { Task } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -19,12 +20,14 @@ const ToggleTaskButton = ({ id, done }: Props) => {
     onMutate: async (updatedData) => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] });
 
-      const previousTasks = queryClient.getQueryData(["tasks"]);
+      const previousTasks = queryClient.getQueryData<Task[]>(["tasks"]);
 
-      queryClient.setQueryData(["tasks"], (old: any) =>
-        old?.map((task: any) =>
-          task.id === id ? { ...task, done: updatedData.done } : task
-        )
+      queryClient.setQueryData<Task[]>(["tasks"], (old) =>
+        old
+          ? old.map((task) =>
+              task.id === id ? { ...task, done: updatedData.done } : task
+            )
+          : []
       );
 
       return { previousTasks };
