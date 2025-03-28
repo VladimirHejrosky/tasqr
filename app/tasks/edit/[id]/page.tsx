@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import EditForm from "./components/EditForm";
 import TaskNotFound from "./components/TaskNotFound";
+import FormSkeleton from "./components/FormSkeleton";
 
 const fetchTask = async (id: string) => {
   const { data } = await axios.get(`/api/tasks/${id}`);
@@ -21,17 +22,14 @@ const EditTaskPage = () => {
     queryKey: ["tasks", id],
     queryFn: () => fetchTask(id as string),
     enabled: !!id,
-    retry: false
+    retry: false,
   });
 
-    
-  if (isLoading) return <div>loading</div>
+  if (isLoading) return <FormSkeleton />;
 
-  if (!task || error) return <TaskNotFound />
+  if (!task || error) return <TaskNotFound />;
 
-  return (
-     <EditForm task={task} />
-  );
+  return <EditForm task={task} />;
 };
 
 export default EditTaskPage;
