@@ -2,6 +2,7 @@
 import DoneIcon from "@mui/icons-material/Done";
 import ReplayIcon from "@mui/icons-material/Replay";
 import { Backdrop, CircularProgress } from "@mui/material";
+import { Task } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -16,30 +17,43 @@ const ToggleTaskButton = ({ id, done }: Props) => {
     mutationFn: async (updatedData: { done: boolean }) => {
       return await axios.patch(`api/tasks/${id}`, updatedData);
     },
-    onSuccess: () => {
+    onMutate: async (updatedData) => {
+      await queryClient.cancelQueries({ queryKey: ["tasks"] });
+
+      const previousTasks = queryClient.getQueryData<Task[]>(["tasks"]);
+
+      queryClient.setQueryData<Task[]>(["tasks"], (old) =>
+        old
+          ? old.map((task) =>
+              task.id === id ? { ...task, done: updatedData.done } : task
+            )
+          : []
+      );
+
+      return { previousTasks };
+    },
+    onError: (_err, _newTask, context) => {
+      if (context?.previousTasks) {
+        queryClient.setQueryData(["tasks"], context.previousTasks);
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
-
-  const handleUpdate = () => {
-    const updatedData = {
-      done: !done,
-    };
-    mutation.mutate(updatedData);
-  };
 
   return (
     <>
       {done ? (
         <ReplayIcon
-          onClick={handleUpdate}
+        onClick={() => mutation.mutate({ done: false })}
           color="secondary"
           fontSize="medium"
           sx={{ cursor: "pointer" }}
         />
       ) : (
         <DoneIcon
-          onClick={handleUpdate}
+        onClick={() => mutation.mutate({ done: true })}
           color="success"
           fontSize="medium"
           sx={{ cursor: "pointer" }}

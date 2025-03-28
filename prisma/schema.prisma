@@ -32,6 +32,31 @@ enum Repeat {
   monthly
 }
 
+model ShoppingItem {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  checked   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  family    Family?  @relation(fields: [familyId], references: [id])
+  familyId  String?
+}
+
+model Family {
+  id                  String         @id @default(uuid())
+  name                String
+  adminId             String         @unique
+  admin               User           @relation("AdminFamilies", fields: [adminId], references: [id])
+  members             User[]         @relation("FamilyMembers")
+  inviteCode          String?        @unique
+  inviteCodeExpiresAt DateTime?
+  shoppingItems       ShoppingItem[]
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @default(now()) @updatedAt
+}
+
 model User {
   id            String          @id @default(cuid())
   name          String?
@@ -43,7 +68,11 @@ model User {
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 
-  task Task[]
+  task         Task[]
+  shoppingItem ShoppingItem[]
+  familyId     String?
+  familyMember Family?        @relation("FamilyMembers", fields: [familyId], references: [id])
+  adminFamily  Family?        @relation("AdminFamilies")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
