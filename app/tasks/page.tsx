@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import AddTaskButton from "./components/AddTaskButton";
 import TabPanel from "./components/TabPanel";
-import TasksList from "./components/TasksList";
+import TasksList from "./components/TaskList";
 
 interface Props {
   searchParams: Promise<{ status: "active" | "completed" | "repeated" }>;
