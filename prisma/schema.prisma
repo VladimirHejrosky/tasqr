@@ -35,7 +35,7 @@ enum Repeat {
 model ShoppingItem {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(100)
-  done      Boolean  @default(false)
+  checked   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
   user      User     @relation(fields: [userId], references: [id])
@@ -45,16 +45,16 @@ model ShoppingItem {
 }
 
 model Family {
-  id            String         @id @default(uuid())
-  name          String
-  adminId       String         @unique
-  admin         User           @relation("AdminFamilies", fields: [adminId], references: [id])
-  members       User[]         @relation("FamilyMembers")
-  inviteCode    String?        @unique
-  inviteCodeExpiresAt  DateTime?
-  shoppingItems ShoppingItem[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @default(now()) @updatedAt
+  id                  String         @id @default(uuid())
+  name                String
+  adminId             String         @unique
+  admin               User           @relation("AdminFamilies", fields: [adminId], references: [id])
+  members             User[]         @relation("FamilyMembers")
+  inviteCode          String?        @unique
+  inviteCodeExpiresAt DateTime?
+  shoppingItems       ShoppingItem[]
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @default(now()) @updatedAt
 }
 
 model User {
