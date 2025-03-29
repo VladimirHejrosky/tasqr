@@ -9,6 +9,7 @@ import MainHeader from "./components/MainHeader";
 import "./globals.css";
 import QueryClientProvider from "./QueryClientProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: "Tasqr",
@@ -41,6 +42,7 @@ export default function RootLayout({
           </QueryClientProvider>
         </AuthProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
