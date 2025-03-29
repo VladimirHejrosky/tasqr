@@ -8,11 +8,12 @@ import AuthProvider from "./auth/Provider";
 import MainHeader from "./components/MainHeader";
 import "./globals.css";
 import QueryClientProvider from "./QueryClientProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Tasqr",
   description: "Aplikace na úkoly",
-   icons: "/favicon.ico"
+  icons: "/favicon.ico",
 };
 
 export default function RootLayout({
@@ -39,6 +40,7 @@ export default function RootLayout({
             </AppRouterCacheProvider>
           </QueryClientProvider>
         </AuthProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
