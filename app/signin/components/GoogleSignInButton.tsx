@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 
 const GoogleSignInButton = () => {
   return (
-    <Button sx={{textWrap: "nowrap", fontSize: { xs: "1rem", sm: "1.5rem" } }} variant='outlined' onClick={() => signIn("google", { callbackUrl: "/" })}>
+    <Button sx={{textWrap: "nowrap" }} variant='outlined' onClick={() => signIn("google", { callbackUrl: "/" })}>
         Přihlásit přes Google
     </Button>
   )

@@ -54,14 +54,14 @@ export default function LandingPage() {
       <GrainyFilter />
       <Container maxWidth="sm">
         <motion.h1
-          style={{ y: titleY, scale: titleScale }}
+          style={{ y: titleY, scale: titleScale, willChange: "transform" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2 }}
           className="fixed left-1/2 -translate-x-1/2"
         >
           <Typography
-            sx={{ fontSize: { xs: "6rem", sm: "8rem" } }}
+            sx={{ fontSize: { xs: "6rem", md: "8rem" } }}
             fontWeight={"bold"}
           >
             <span className="text-sky-600">T</span>as
@@ -76,16 +76,24 @@ export default function LandingPage() {
             y: "50vh",
             zIndex: "1",
             rotateY: imageFlip,
+            willChange: "transform",
           }}
           className="fixed left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
-          <Image
-            src={phone}
-            alt="Náhled úkolů"
-            width={100}
-            height={0}
-            className="lg:w-[200px]"
-          />
+          <Box
+            sx={{
+              position: "relative",
+              width: { xs: 100, md: 200 },
+              height: { xs: 200, md: 400 },
+            }}
+          >
+            <Image
+              src={phone}
+              alt="Náhled úkolů"
+              layout="fill"
+              objectFit="contain"
+            />
+          </Box>
         </motion.div>
 
         <motion.div
@@ -94,19 +102,20 @@ export default function LandingPage() {
             opacity: taskInfoOpacity,
             scale: taskInfoScale,
             zIndex: "2",
+            willChange: "transform",
           }}
           className="fixed left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <Typography
             noWrap
             fontWeight={"bold"}
-            sx={{ fontSize: { xs: "2rem", sm: "4rem" } }}
+            sx={{ fontSize: { xs: "2rem", md: "4rem" } }}
           >
             Správa <span className="text-sky-600">úkolů</span>
           </Typography>
           <Typography
             noWrap
-            sx={{ fontSize: { xs: "1rem", sm: "2rem" } }}
+            sx={{ fontSize: { xs: "1rem", md: "2rem" } }}
             fontWeight={"bold"}
           >
             s automatickým <span className="text-sky-600">opakováním</span>
@@ -114,19 +123,24 @@ export default function LandingPage() {
         </motion.div>
 
         <motion.div
-          style={{ y: shopInfoY, opacity: shopInfoOpacity, zIndex: "2" }}
+          style={{
+            y: shopInfoY,
+            opacity: shopInfoOpacity,
+            zIndex: "2",
+            willChange: "transform",
+          }}
           className="fixed left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <Typography
             noWrap
-            sx={{ fontSize: { xs: "2rem", sm: "4rem" } }}
+            sx={{ fontSize: { xs: "2rem", md: "4rem" } }}
             fontWeight={"bold"}
           >
             <span className="text-amber-600">Nákupní</span> seznam
           </Typography>
           <Typography
             noWrap
-            sx={{ fontSize: { xs: "1rem", sm: "2rem" } }}
+            sx={{ fontSize: { xs: "1rem", md: "2rem" } }}
             fontWeight={"bold"}
           >
             <span className="text-amber-600">osobní i sdílený</span> s rodinou
@@ -139,10 +153,11 @@ export default function LandingPage() {
             opacity: loginOpacity,
             scale: loginScale,
             zIndex: "2",
+            willChange: "transform",
           }}
           className="fixed left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4"
         >
-          <GoogleIcon sx={{ fontSize: { xs: "2rem", sm: "4rem" } }} />
+          <GoogleIcon fontSize="large" />
           <GoogleSignInButton />
         </motion.div>
 
