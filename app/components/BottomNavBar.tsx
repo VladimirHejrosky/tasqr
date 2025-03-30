@@ -24,7 +24,7 @@ export default function BottomNavBar() {
           elevation={3}
         >
           <BottomNavigation 
-          sx={{paddingY: "20px"}}
+          sx={{paddingTop: "20px", paddingBottom: "40px"}}
             showLabels
             value={links.findIndex((link) => link.path === pathname)}
             onChange={(event, newValue) => {
