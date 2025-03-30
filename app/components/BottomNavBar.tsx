@@ -12,7 +12,7 @@ export default function BottomNavBar() {
   return (
     <>
       {pathname !== "/signin" && (
-        <Box sx={{ marginTop: {xs: "130px", lg: "0" }}}>
+        <Box sx={{ marginTop: {xs: "150px", lg: "0" }}}>
         <Paper
           sx={{
             position: "fixed",
@@ -24,7 +24,7 @@ export default function BottomNavBar() {
           elevation={3}
         >
           <BottomNavigation 
-          sx={{paddingTop: "20px", paddingBottom: "40px"}}
+          sx={{paddingTop: "30px", paddingBottom: "40px"}}
             showLabels
             value={links.findIndex((link) => link.path === pathname)}
             onChange={(event, newValue) => {

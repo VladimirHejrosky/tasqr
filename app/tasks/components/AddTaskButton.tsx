@@ -11,7 +11,7 @@ const AddTaskButton = () => {
       color="primary" sx={{
       position: "fixed",
       left: 10,
-      bottom: 70,
+      bottom: 80,
       opacity: ".9",
       display: {xs: "block", lg: "none"},
       boxShadow: "0 0 5px var(--mui-palette-common-onBackground)", 
