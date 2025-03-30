@@ -1,6 +1,6 @@
 "use client";
 
-import phone from "@/public/images/phone-right.webp";
+import phone from "@/public/images/phone.webp";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Box, Container, Typography } from "@mui/material";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -89,7 +89,7 @@ export default function LandingPage() {
           >
             <Image
               src={phone}
-              alt="Náhled úkolů"
+              alt="Mobil"
               layout="fill"
               objectFit="contain"
             />

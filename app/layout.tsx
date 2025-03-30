@@ -14,7 +14,7 @@ import { Analytics } from "@vercel/analytics/react"
 export const metadata: Metadata = {
   title: "Tasqr",
   description: "Aplikace na úkoly",
-  icons: "/favicon.ico",
+  icons: "/icons/favicon.ico",
 };
 
 export default function RootLayout({
