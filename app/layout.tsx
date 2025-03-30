@@ -9,12 +9,13 @@ import MainHeader from "./components/MainHeader";
 import "./globals.css";
 import QueryClientProvider from "./QueryClientProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Tasqr",
   description: "Aplikace na úkoly",
   icons: "/icons/favicon.ico",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
