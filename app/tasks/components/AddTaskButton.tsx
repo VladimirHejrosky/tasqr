@@ -10,8 +10,8 @@ const AddTaskButton = () => {
       onClick={() => router.push("/tasks/new")}
       color="primary" sx={{
       position: "fixed",
-      left: 5,
-      bottom: 65,
+      left: 10,
+      bottom: 70,
       opacity: ".9",
       display: {xs: "block", lg: "none"},
       boxShadow: "0 0 5px var(--mui-palette-common-onBackground)", 
