@@ -17,5 +17,21 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshot-narrow-675x1200.png",
+      "sizes": "675x1200",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile"
+    },
+    {
+      "src": "/images/screenshot-wide-1200x675.png",
+      "sizes": "1200x675",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop"
+    }
   ]
 }

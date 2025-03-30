@@ -13,7 +13,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Tasqr",
-  description: "Aplikace na úkoly",
+  description: "Aplikace na správu úkolů a nákupního seznamu",
   icons: "/icons/favicon.ico",
   manifest: "/manifest.json",
 };
