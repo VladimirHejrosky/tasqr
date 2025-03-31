@@ -7,9 +7,16 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import GoogleSignInButton from "./GoogleSignInButton";
 import GrainyFilter from "./GrainyFilter";
+import { useState } from "react";
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
+  const [isAtTop, setIsAtTop] = useState(true);
+
+  scrollYProgress.on("change", (value) => {
+    setIsAtTop(value === 0);
+  });
 
   const titleY = useTransform(scrollYProgress, [0, 0.2], ["40vh", "10vh"]);
   const titleScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.7]);
@@ -68,6 +75,8 @@ export default function LandingPage() {
             <span className="text-amber-600">q</span>r
           </Typography>
         </motion.h1>
+
+        <KeyboardDoubleArrowDownIcon className="blink"  sx={{ display: isAtTop ? "block" : " none", position: "fixed", left: "50%", bottom: "20px", transform: "translateX(-50%)", color: "white", fontSize: { xs: "3rem", md: "5rem" }}} />
 
         <motion.div
           style={{
