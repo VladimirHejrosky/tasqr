@@ -152,7 +152,7 @@ export default function LandingPage() {
             sx={{ fontSize: { xs: "1rem", md: "2rem" } }}
             fontWeight={"bold"}
           >
-            <span className="text-amber-600">osobní i sdílený</span> s rodinou
+            <span className="text-amber-600">průběžné zapisování</span> nákupu
           </Typography>
         </motion.div>
 

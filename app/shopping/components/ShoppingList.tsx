@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Item = {
   id: number;
@@ -62,12 +62,14 @@ const ShoppingList = () => {
   useEffect(() => {
     const loadItems = async () => {
       const data = await fetchData();
-      console.log(data);
       setInitialItems(structuredClone(data));
 
       const storedData = getDataFromLocalStorage();
-      console.log(storedData);
-      storedData && storedData.length !== 0 ? setItems(storedData) : setItems(data);
+      if (storedData && storedData.length !== 0) {
+        setItems(storedData);
+      } else {
+        setItems(data);
+      }
     };
     loadItems();
   }, []);
@@ -96,43 +98,42 @@ const ShoppingList = () => {
     ]);
     setInputValue("");
   };
-
-  useEffect(() => {
-    checkChanges();
-  }, [items]);
-
-  const compareItems = () => {
+  const compareItems = useCallback(() => {
     const initialMap = new Map(initialItems.map((item) => [item.id, item]));
     const currentMap = new Map(items.map((item) => [item.id, item]));
-
+  
     const updatedItems = items.filter(
       (item) =>
         initialMap.has(item.id) &&
         initialMap.get(item.id)?.checked !== item.checked
     );
-
+  
     const newItems = items.filter((item) => !initialMap.has(item.id));
-
-    const deletedItems = initialItems.filter(
-      (item) => !currentMap.has(item.id)
-    );
-
+  
+    const deletedItems = initialItems.filter((item) => !currentMap.has(item.id));
+  
     return { updatedItems, newItems, deletedItems };
-  };
-  const checkChanges = () => {
-    const { updatedItems, newItems, deletedItems } = compareItems();
-    if (
-      updatedItems.length === 0 &&
-      newItems.length === 0 &&
-      deletedItems.length === 0
-    ) {
-      setIsChanges(false);
-      return;
-    }
-    setIsChanges(true);
-    saveDataToLocalStorage(items);
-    return;
-  };
+  }, [initialItems, items]);
+  
+
+  useEffect(() => {
+    const checkChanges = () => {
+      const { updatedItems, newItems, deletedItems } = compareItems();
+      if (
+        updatedItems.length === 0 &&
+        newItems.length === 0 &&
+        deletedItems.length === 0
+      ) {
+        setIsChanges(false);
+        return;
+      }
+      setIsChanges(true);
+      saveDataToLocalStorage(items);
+      
+    };
+    checkChanges();
+  }, [items, compareItems]);
+
 
   const handleSave = async () => {
     setLoading(true);

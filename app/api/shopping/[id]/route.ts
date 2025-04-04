@@ -33,7 +33,7 @@ export async function DELETE(
       { message: "Delete shopping item" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch  {
     return NextResponse.json(
       { error: "Error deleting shopping item" },
       { status: 500 }
@@ -75,7 +75,7 @@ export async function PATCH(
       { message: "Update shopping item" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch  {
     return NextResponse.json(
       { error: "Error updating shopping item" },
       { status: 500 }

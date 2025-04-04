@@ -10,7 +10,7 @@ type item = {
   checked: boolean,
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user?.email)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -44,10 +44,10 @@ export async function POST(req: NextRequest) {
         checked: body.checked,
         userId: user.id,}
     });
-    
+
     return NextResponse.json({ body }, { status: 200 });
 
-  } catch (error) {
+  } catch  {
     return NextResponse.json({ error: "Error creating shopping items" }, { status: 500 });
   }
 }
