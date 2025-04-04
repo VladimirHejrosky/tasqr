@@ -4,17 +4,17 @@ import { authOptions } from "../auth/[...nextauth]/route";
 import { prisma } from "@/prisma/prisma";
 import { ShoppingItem } from "@prisma/client";
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const status = searchParams.get("status") as "personal" | "family" | null;
+type item = {
+  temporaryId: number,
+  name: string,
+  checked: boolean,
+}
 
+export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user?.email)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  //if status is family
-
-  //if status is not family
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },
     include: { shoppingItem: { orderBy: { updatedAt: "desc" } } },
@@ -23,16 +23,31 @@ export async function GET(req: NextRequest) {
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  // const data: ShoppingItem[] = user.shoppingItem
+  const data: ShoppingItem[] = user.shoppingItem
 
-  // Simulated data
-  const data = [
-    { id: 1, name: "Mléko", checked: false },
-    { id: 2, name: "Chleba", checked: false },
-    { id: 3, name: "Šunka", checked: false },
-    { id: 4, name: "Sýr", checked: false },
-    { id: 5, name: "Jogurt", checked: false },
-  ];
+  return NextResponse.json( data , { status: 200 });
+}
 
-  return NextResponse.json({ data }, { status: 200 });
+export async function POST(req: NextRequest) {
+  const body: item = await req.json()
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user?.email) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  try {
+    await prisma.shoppingItem.create({
+      data: {
+        name: body.name,
+        checked: body.checked,
+        userId: user.id,}
+    });
+    
+    return NextResponse.json({ body }, { status: 200 });
+
+  } catch (error) {
+    return NextResponse.json({ error: "Error creating shopping items" }, { status: 500 });
+  }
 }

@@ -1,8 +1,10 @@
 "use client";
 import {
+  Backdrop,
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   FilledInput,
   FormControl,
   InputAdornment,
@@ -14,6 +16,8 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Item = {
@@ -23,13 +27,8 @@ type Item = {
 };
 
 const fetchData = async (): Promise<Item[]> => {
-  return [
-    { id: 1, name: "Mléko", checked: false },
-    { id: 2, name: "Chleba", checked: false },
-    { id: 3, name: "Šunka", checked: false },
-    { id: 4, name: "Sýr", checked: false },
-    { id: 5, name: "Jogurt", checked: false },
-  ];
+  const {data} = await axios.get("/api/shopping");
+  return data;
 };
 
 const getDataFromLocalStorage = () => {
@@ -48,29 +47,27 @@ const saveDataToLocalStorage = (data: Item[]) => {
 const clearLocalStorage = () => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("shoppingList");
+    console.log("Cleared local storage");
   }
 };
 
 const ShoppingList = () => {
+  const router = useRouter();
   const [items, setItems] = useState<Item[]>([]);
   const [initialItems, setInitialItems] = useState<Item[]>([]);
   const [isChanges, setIsChanges] = useState(false);
   const [inputValue, setInputValue] = useState("");
-
-  useEffect(() => {
-    const storedData = getDataFromLocalStorage();
-    if (storedData && storedData.length > 0) {
-      setInitialItems(storedData);
-    }
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const loadItems = async () => {
       const data = await fetchData();
+      console.log(data);
       setInitialItems(structuredClone(data));
 
       const storedData = getDataFromLocalStorage();
-      storedData ? setItems(storedData) : setItems(data);
+      console.log(storedData);
+      storedData && storedData.length !== 0 ? setItems(storedData) : setItems(data);
     };
     loadItems();
   }, []);
@@ -79,7 +76,6 @@ const ShoppingList = () => {
     clearLocalStorage();
     setItems(initialItems);
   };
-
   const handleToggle = (id: number) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
@@ -92,7 +88,7 @@ const ShoppingList = () => {
     setItems((prevItems) => prevItems.filter((item) => !item.checked));
   };
 
-  const handleSave = (name: string) => {
+  const handleCreateNew = (name: string) => {
     if (name.trim() === "") return;
     setItems((prevItems) => [
       { id: Date.now(), name, checked: false },
@@ -105,7 +101,7 @@ const ShoppingList = () => {
     checkChanges();
   }, [items]);
 
-  const checkChanges = async () => {
+  const compareItems = () => {
     const initialMap = new Map(initialItems.map((item) => [item.id, item]));
     const currentMap = new Map(items.map((item) => [item.id, item]));
 
@@ -121,6 +117,10 @@ const ShoppingList = () => {
       (item) => !currentMap.has(item.id)
     );
 
+    return { updatedItems, newItems, deletedItems };
+  };
+  const checkChanges = () => {
+    const { updatedItems, newItems, deletedItems } = compareItems();
     if (
       updatedItems.length === 0 &&
       newItems.length === 0 &&
@@ -131,9 +131,30 @@ const ShoppingList = () => {
     }
     setIsChanges(true);
     saveDataToLocalStorage(items);
-    console.log("✅ Změněné:", updatedItems);
-    console.log("🆕 Nové:", newItems);
-    console.log("❌ Smazané:", deletedItems);
+    return;
+  };
+
+  const handleSave = async () => {
+    setLoading(true);
+    const { updatedItems, newItems, deletedItems } = compareItems();
+    try {
+      const requests = [
+        ...newItems.map((item) => axios.post("/api/shopping", item)),
+        ...updatedItems.map((item) =>
+          axios.patch(`/api/shopping/${item.id}`, item)
+        ),
+        ...deletedItems.map((item) => axios.delete(`/api/shopping/${item.id}`)),
+      ];
+      await Promise.all(requests);
+
+      setInitialItems(items)
+      clearLocalStorage();
+      setIsChanges(false)
+      setLoading(false);
+      return router.refresh();
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
   };
 
   return (
@@ -143,12 +164,13 @@ const ShoppingList = () => {
         component={"form"}
         onSubmit={(e) => {
           e.preventDefault();
-          handleSave(inputValue);
+          handleCreateNew(inputValue);
         }}
         sx={{ my: 2, width: "100%" }}
       >
         <InputLabel htmlFor="new-item-input">Nová položka</InputLabel>
         <FilledInput
+          inputProps={{ min: 1, max: 100 }}
           id="new-item-input"
           type="text"
           value={inputValue}
@@ -222,9 +244,16 @@ const ShoppingList = () => {
               Vrátit změny
             </Button>
           )}
-          {isChanges && <Button variant="contained">Uložit</Button>}
+          {isChanges && (
+            <Button onClick={handleSave} variant="contained">
+              Uložit
+            </Button>
+          )}
         </Box>
       </Box>
+      <Backdrop open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 };
