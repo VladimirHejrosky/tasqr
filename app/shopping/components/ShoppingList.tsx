@@ -5,7 +5,6 @@ import {
   Checkbox,
   FilledInput,
   FormControl,
-  Input,
   InputAdornment,
   InputLabel,
   List,
@@ -33,6 +32,25 @@ const fetchData = async (): Promise<Item[]> => {
   ];
 };
 
+const getDataFromLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    const data = localStorage.getItem("shoppingList");
+    return data ? JSON.parse(data) : [];
+  }
+};
+
+const saveDataToLocalStorage = (data: Item[]) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("shoppingList", JSON.stringify(data));
+  }
+};
+
+const clearLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("shoppingList");
+  }
+};
+
 const ShoppingList = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [initialItems, setInitialItems] = useState<Item[]>([]);
@@ -40,13 +58,27 @@ const ShoppingList = () => {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
+    const storedData = getDataFromLocalStorage();
+    if (storedData && storedData.length > 0) {
+      setInitialItems(storedData);
+    }
+  }, []);
+
+  useEffect(() => {
     const loadItems = async () => {
       const data = await fetchData();
-      setItems(data);
       setInitialItems(structuredClone(data));
+
+      const storedData = getDataFromLocalStorage();
+      storedData ? setItems(storedData) : setItems(data);
     };
     loadItems();
   }, []);
+
+  const handleReset = async () => {
+    clearLocalStorage();
+    setItems(initialItems);
+  };
 
   const handleToggle = (id: number) => {
     setItems((prevItems) =>
@@ -98,6 +130,7 @@ const ShoppingList = () => {
       return;
     }
     setIsChanges(true);
+    saveDataToLocalStorage(items);
     console.log("✅ Změněné:", updatedItems);
     console.log("🆕 Nové:", newItems);
     console.log("❌ Smazané:", deletedItems);
@@ -128,53 +161,70 @@ const ShoppingList = () => {
         />
       </FormControl>
 
-          {items.length === 0 ? <Typography variant="h5" align="center">Žádné položky</Typography> : (
-            <>
-      <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-        {items.map(
-          (item) =>
-            !item.checked && (
-              <ListItem key={item.id} disablePadding>
-                <ListItemButton onClick={() => handleToggle(item.id)} dense>
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      checked={item.checked}
-                      tabIndex={-1}
-                      disableRipple
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={item.name} />
-                </ListItemButton>
-              </ListItem>
-            )
-        )}
+      {items.length === 0 ? (
+        <Typography variant="h5" align="center">
+          Žádné položky
+        </Typography>
+      ) : (
+        <>
+          <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+            {items.map(
+              (item) =>
+                !item.checked && (
+                  <ListItem key={item.id} disablePadding>
+                    <ListItemButton onClick={() => handleToggle(item.id)} dense>
+                      <ListItemIcon>
+                        <Checkbox
+                          edge="start"
+                          checked={item.checked}
+                          tabIndex={-1}
+                          disableRipple
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary={item.name} />
+                    </ListItemButton>
+                  </ListItem>
+                )
+            )}
 
-        {items.map(
-          (item) =>
-            item.checked && (
-              <ListItem key={item.id} disablePadding sx={{opacity: 0.7}}>
-                <ListItemButton onClick={() => handleToggle(item.id)} dense>
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      checked={item.checked}
-                      tabIndex={-1}
-                      disableRipple
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={item.name} />
-                </ListItemButton>
-              </ListItem>
-            )
-        )}
-      </List>
-      <Box marginTop={2} display={"flex"} justifyContent={isChanges ? "space-between" : "flex-start"}>
-        <Button variant="outlined"  onClick={handleDelete}>Smazat vybrané</Button>
-        {isChanges && <Button variant="contained">Uložit</Button>}
-      </Box>
-      </>
+            {items.map(
+              (item) =>
+                item.checked && (
+                  <ListItem key={item.id} disablePadding sx={{ opacity: 0.7 }}>
+                    <ListItemButton onClick={() => handleToggle(item.id)} dense>
+                      <ListItemIcon>
+                        <Checkbox
+                          edge="start"
+                          checked={item.checked}
+                          tabIndex={-1}
+                          disableRipple
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary={item.name} />
+                    </ListItemButton>
+                  </ListItem>
+                )
+            )}
+          </List>
+        </>
+      )}
+      <Box
+        marginTop={2}
+        display={"flex"}
+        justifyContent={isChanges ? "space-between" : "flex-start"}
+      >
+        <Button variant="outlined" onClick={handleDelete}>
+          Smazat vybrané
+        </Button>
+        <Box gap={2} display={"flex"}>
+          {isChanges && (
+            <Button onClick={handleReset} variant="outlined">
+              Vrátit změny
+            </Button>
           )}
+          {isChanges && <Button variant="contained">Uložit</Button>}
+        </Box>
+      </Box>
     </>
   );
 };
