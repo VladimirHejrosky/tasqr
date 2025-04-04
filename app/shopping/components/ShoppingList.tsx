@@ -235,11 +235,13 @@ const ShoppingList = () => {
         marginTop={2}
         display={"flex"}
         justifyContent={isChanges ? "space-between" : "flex-start"}
+        sx={{flexDirection: {xs: "column", md: "row"}, width: {xs:"fit-content", md: "100%"}, margin: "auto"}}
+
       >
         <Button variant="outlined" onClick={handleDelete}>
           Smazat vybrané
         </Button>
-        <Box gap={2} display={"flex"}>
+        <Box gap={2} display={"flex"}  sx={{flexDirection: {xs:"column", md: "row"}, marginTop: {xs: 2, md: "auto"} }}>
           {isChanges && (
             <Button onClick={handleReset} variant="outlined">
               Vrátit změny
